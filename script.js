@@ -49,15 +49,16 @@ function validate(guess, answer) {
     for (let i = 0; i < guess.length; i++) {
         if (guess[i] === answer[i]) {
             result.push("green");
+            guessFrequency[guess[i]]--;
         } else if (
             guess[i] in frequency &&
-            guessFrequency[guess[i]] <= frequency[answer[i]]
+            guessFrequency[guess[i]] > 0 &&
+            guessFrequency[guess[i]] < frequency[answer[i]]
         ) {
             result.push("yellow");
         } else {
             result.push("grey");
         }
-        guessFrequency[guess[i]]--;
     }
 
     console.log(result);
@@ -78,6 +79,11 @@ function declareResult(result, answer) {
     if (!result) {
         document.querySelector(".answer").innerHTML = `Word was: ${answer}`;
     }
+    const reloadButton = document.createElement('button');
+    reloadButton.classList.add('playagain')
+    reloadButton.textContent = 'Play Again'
+    reloadButton.addEventListener('click', (_) => window.location.reload())
+    document.querySelector('main').appendChild(reloadButton)
 }
 
 function didYouWin(data) {
