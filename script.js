@@ -1,4 +1,3 @@
-console.log("hello world");
 let input = ["", "", "", "", ""];
 let guesses = 1;
 let currChars = 0;
@@ -20,11 +19,6 @@ async function getWord() {
     return body[0];
 }
 
-async function displayWord() {
-    const word = await getWord();
-    console.log(word);
-}
-
 function validate(guess, answer) {
     const result = [];
     const guessFrequency = {};
@@ -36,7 +30,7 @@ function validate(guess, answer) {
     for (let i = 0; i < answer.length; i++) {
         frequency[answer[i]] += 1;
     }
-    console.log(frequency);
+    // console.log(frequency);
 
     for (let i = 0; i < guess.length; i++) {
         guessFrequency[guess[i]] = 0;
@@ -44,7 +38,7 @@ function validate(guess, answer) {
     for (let i = 0; i < guess.length; i++) {
         guessFrequency[guess[i]] += 1;
     }
-    console.log(guessFrequency);
+    // console.log(guessFrequency);
 
     for (let i = 0; i < guess.length; i++) {
         if (guess[i] === answer[i]) {
@@ -61,7 +55,7 @@ function validate(guess, answer) {
         }
     }
 
-    console.log(result);
+    // console.log(result);
     return result;
 }
 
@@ -74,16 +68,16 @@ function updateCSS(data, guesses) {
 
 function declareResult(result, answer) {
     const content = result ? "YOU WON" : "YOU LOSE";
-    console.log(content);
+    // console.log(content);
     document.querySelector(".result").innerHTML = content;
     if (!result) {
         document.querySelector(".answer").innerHTML = `Word was: ${answer}`;
     }
-    const reloadButton = document.createElement('button');
-    reloadButton.classList.add('playagain')
-    reloadButton.textContent = 'Play Again'
-    reloadButton.addEventListener('click', (_) => window.location.reload())
-    document.querySelector('main').appendChild(reloadButton)
+    const reloadButton = document.createElement("button");
+    reloadButton.classList.add("playagain");
+    reloadButton.textContent = "Play Again";
+    reloadButton.addEventListener("click", (_) => window.location.reload());
+    document.querySelector("main").appendChild(reloadButton);
 }
 
 function didYouWin(data) {
@@ -107,7 +101,7 @@ function handleEvent(event, answer) {
         if (input.join("").length < 5) {
             console.log("bro complete that shit");
         } else {
-            console.log("Enter pressed");
+            // console.log("Enter pressed");
             const data = validate(input.join(""), answer);
             updateCSS(data, guesses);
             if (didYouWin(data)) {
@@ -127,7 +121,7 @@ function handleEvent(event, answer) {
     } else if (event.key == "Backspace" && currChars > 0) {
         currChars--;
         input[currChars] = "";
-        console.log(input);
+        // console.log(input);
         let attempt = document.querySelector(`.attempt-${guesses}`);
         attempt.innerHTML = updateBox(input);
     }
@@ -135,7 +129,7 @@ function handleEvent(event, answer) {
 
 async function setupWordle() {
     const answer = await getWord();
-    console.log(answer);
+    // console.log(answer);
 
     // pass it into handle event or make a new function validate
     // then update css
